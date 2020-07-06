@@ -148,17 +148,8 @@ pt_table <- rbind(p_table,t1[,.(gene="<TOTAL>",rsid=NA,a1=NA,a0=NA,beta=mbeta,se
 
 t2 <- pvalues[!grepl("APOE",label),.(mbeta=sum(beta/se^2)/sum(1/se^2), mse=sqrt(1/sum(1/se^2)))]
 t2[,c("mz","mp"):=.(mbeta/mse, 2*pnorm(-abs(mbeta/mse)))]
-
-
-# Remaining loci
-
-t3 <- pvalues[!grepl("APOE|FOXO|CDKN2B",label),.(mbeta=sum(beta/se^2)/sum(1/se^2), mse=sqrt(1/sum(1/se^2)))]
-t3[,c("mz","mp"):=.(mbeta/mse, 2*pnorm(-abs(mbeta/mse)))]
-
-
-pt_table <- rbind(pt_table, 
-	t2[,.(gene="<TOTAL w/o APOE>",rsid=NA,a1=NA,a0=NA,beta=mbeta,se=mse,z=mz,p=mp)],
-	t3[,.(gene="<TOTAL w/o APOE, FOXO3, CDKN2B-AS1>",rsid=NA,a1=NA,a0=NA,beta=mbeta,se=mse,z=mz,p=mp)])
+pt_table <- rbind(pt_table, t2[,.(gene="<TOTAL w/o APOE>",rsid=NA,a1=NA,a0=NA,beta=mbeta,se=mse,z=mz,p=mp)])
+pt_table[,p_adj:=pmin(p*12,1)]
 
 
 # Export

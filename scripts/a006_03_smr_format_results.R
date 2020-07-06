@@ -49,10 +49,10 @@ res3_trans <- res3[grepl("trans",source),]
 cat("\n\n====================== Cis Genes q_smr <",smr_thresh,"& p_heidi >",heidi_thresh,"======================\n\n")
 
 tissue <- res3_cis[p_heidi > heidi_thresh,.(N_genes=length(unique(gene)), loci=paste0(unique(locus), collapse=", "), N_loci=length(unique(locus))),by="tissue"][order(-N_genes)]
-tissue <- rbind(tissue, data.table(tissue=paste0("< ALL ",tissue[,.N]," tissues > "),N_genes=res3_cis[p_heidi > heidi_thresh,length(unique(gene))], loci=paste0(res3_cis[p_heidi > 0.05,unique(locus)], collapse=", "), N_loci=res3_cis[p_heidi > 0.05,length(unique(locus))]))
+tissue <- rbind(tissue, data.table(tissue=paste0("< ALL ",tissue[,.N]," tissues > "),N_genes=res3_cis[p_heidi > heidi_thresh,length(unique(gene))], loci=paste0(res3_cis[p_heidi > heidi_thresh,unique(locus)], collapse=", "), N_loci=res3_cis[p_heidi > 0.05,length(unique(locus))]))
 print(tissue)
 
-cat("\nNumber of unique genes across all tissues:",res3_cis[,length(unique(gene))],"\n")
+cat("\nNumber of unique genes across all tissues:",res3_cis[p_heidi > heidi_thresh,length(unique(gene))],"\n")
 
 
 cat("\n\n====================== Cis Blood p_heidi >",heidi_thresh,"======================\n\n")

@@ -106,3 +106,13 @@ dev.off()
 pdf("st005_09_genetic_correlations.pdf", height=6, width=5)
 ggarrange(g1, g2, ncol=1, nrow=2, labels=c("(a)","(b)"))
 dev.off()
+
+
+#----
+# Publication
+#----
+
+setEPS()
+postscript("st005_09_genetic_correlations.eps", height=6, width=5)
+ggarrange(g1, g2, ncol=1, nrow=2, labels=c("(a)","(b)"))
+dev.off()
